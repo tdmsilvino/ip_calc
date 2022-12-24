@@ -1,16 +1,23 @@
-"""
-ip_calc.py  Copyright (C) 2022 Thiago Silvino
+"""ip_calc.py  Copyright (C) 2022 Thiago Silvino
 This program comes with ABSOLUTELY NO WARRANTY;
 This is free software, and you are welcome to redistribute it
 under certain conditions;
 """
 from ipaddress import IPv4Interface
 
-def show_address_info(addr_info):
+def show_address_info(addr_info: dict):
+    """ Receives a dictionary with subnet information and prints it """
     for k, v in addr_info.items():
         print(f'{k}:\t{v}')
 
-def address_info(addr):
+def address_info(addr: str) -> dict:
+    """Receives a string with IP address in on of these forms:
+        '10.123.4.5/24'
+        '10.123.4.5/255.255.128.0'
+        '10.123.4.5 255.255.128.0'
+        '10.123.4.5 0.0.63.255'
+       Returns a dictionary with subnet information.
+    """
     try:
         ipaddr = IPv4Interface(addr)
         prefixlen = ipaddr.network.prefixlen
